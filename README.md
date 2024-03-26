@@ -8,8 +8,11 @@ This project deploys a chatbot application on AWS. The chatbot is powered by Ama
 **System design**
 ![Alt Text](system_design.png)
 
+
 **Snapshots of webApp **
+
 ![Alt Text](chatbot_ui_2.png)
+
 ![Alt Text](chatbot_ui_1.png)
 
 
@@ -29,7 +32,26 @@ This project deploys a chatbot application on AWS. The chatbot is powered by Ama
 
 **Deployment**
 
-The deployment process involves creating and configuring several AWS resources. Please refer to the deployment guide for detailed instructions.
+The deployment process involves creating and configuring several AWS resources.
+
+1. Setup your AWS account and AWS bedrock model accesses.
+2. create EC2 instance
+  ON EC2 instance,
+  4. install pip
+     sudo yum install python3 python3-devel python3-pip
+  5. install git
+     sudo yum install git 
+  6. Clone repo
+     git clone git@github.com:RohanL1/chatbot.git
+  7. install required python packages
+     sudo pip install -r requirements.txt
+  8. congfigure your EC2 instance to accept http connections.
+9. create more Ec2 instances if required and perform step 2-7 for each.
+10. create a load balancer and add these Ec2 instances as target group.
+11. run server
+   sudo streamlit run app.py --server.port 80
+12. Chat with Your New Chatbot!
+
 
 **Testing**
 
