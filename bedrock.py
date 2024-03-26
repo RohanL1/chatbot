@@ -47,7 +47,7 @@ def store_question_answer(question, answer):
         response = dynamodb.put_item(
             TableName=table_name,
             Item={
-                'question': {'S': question},
+                'question': {'S': question['question']},
                 'answer': {'S': answer}
             }
         )
