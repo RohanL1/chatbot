@@ -5,6 +5,57 @@ from langchain.llms.bedrock import Bedrock
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 
+# Initialize the DynamoDB client
+dynamodb = boto3.client('dynamodb', region_name='us-east-1')
+
+# Define the DynamoDB table name
+table_name = 'LlmResponseStore'
+
+
+# Check if the table exists, and create it if it doesn't
+def create_table_if_not_exists():
+    try:
+        # Check if the table exists
+        dynamodb.describe_table(TableName=table_name)
+    except dynamodb.exceptions.ResourceNotFoundException:
+        # Table doesn't exist, create it
+        dynamodb.create_table(
+            TableName=table_name,
+            KeySchema=[
+                {
+                    'AttributeName': 'question',
+                    'KeyType': 'HASH'  # Partition key
+                }
+            ],
+            AttributeDefinitions=[
+                {
+                    'AttributeName': 'question',
+                    'AttributeType': 'S'  # String
+                }
+            ],
+            ProvisionedThroughput={
+                'ReadCapacityUnits': 5,
+                'WriteCapacityUnits': 5
+            }
+        )
+        print("Table created successfully")
+        
+# Function to store question and answer in DynamoDB
+def store_question_answer(question, answer):
+    try:
+        # Put item into the DynamoDB table
+        response = dynamodb.put_item(
+            TableName=table_name,
+            Item={
+                'question': {'S': question},
+                'answer': {'S': answer}
+            }
+        )
+        print("Item stored successfully:", response)
+    except Exception as e:
+        print("Error storing item:", e)
+        
+
 def bedrock_chain():
     # profile = os.environ["AWS_PROFILE"]
 
