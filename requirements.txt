@@ -1,0 +1,6 @@
+boto3
+langchain
+streamlit
+transformers
+uuid
+awscli
