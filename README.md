@@ -37,13 +37,13 @@ The deployment process involves creating and configuring several AWS resources.
 1. Setup your AWS account and AWS bedrock model accesses.
 2. create EC2 instance
   ON EC2 instance,
-  4. install pip\n
+  4. install pip: 
      sudo yum install python3 python3-devel python3-pip
-  5. install git\n
+  5. install git: 
      sudo yum install git 
-  6. Clone repo\n
+  6. Clone repo: 
      git clone git@github.com:RohanL1/chatbot.git
-  7. install required python packages\n
+  7. install required python packages: 
      sudo pip install -r requirements.txt
   8. congfigure your EC2 instance to accept http connections.
 9. create more Ec2 instances if required and perform step 2-7 for each.
