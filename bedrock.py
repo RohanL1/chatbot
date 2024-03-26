@@ -48,7 +48,7 @@ def store_question_answer(question, answer):
             TableName=table_name,
             Item={
                 'question': {'S': question['question']},
-                'answer': {'S': answer['response']}
+                'answer': {'S': answer['answer']['response']}
             }
         )
         print("Item stored successfully:", response)
