@@ -89,10 +89,13 @@ def write_chat_message(md):
         render_answer(md["answer"])
 
 
+bedrock.create_table_if_not_exists()
+
 with st.container():
     for q, a in zip(st.session_state.questions, st.session_state.answers):
         write_user_message(q)
         write_chat_message(a)
+        bedrock.store_question_answer(q, a)
 
 
 st.markdown("---")
